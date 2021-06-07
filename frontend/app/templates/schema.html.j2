@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Melodramatique</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fa/css/fork-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-tagsinput.min.css') }}" />
+    <script src="{{ url_for('static', filename='js/bulma-tagsinput.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bulma-toast.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+  </head>
+  <body>
+    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="{{ url_for('static', filename='img/nav-logo.png') }}" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="main-nav">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="main-nav" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{{url_for('search')}}">
+            Pesquisar
+          </a>
+
+          <a class="navbar-item">
+            Adicionar artigos
+          </a>
+
+          <a class="navbar-item" href="https://melodrama.paginas.ufsc.br/" target="_blank" rel="noopener noreferrer">
+            Sobre
+          </a>
+        </div>
+      </div>
+    </nav>
+
+  <section class="section">
+    {% for (k, field) in schema.items() %}
+      <div class="field">
+        <label class="label">{{ field.name }}</label>
+        {% if field.input.type == 'textarea' %}
+        <textarea class="textarea {{ field.input.classes|join(' ') }}" placeholder="{{ field.input.placeholder }}"></textarea>
+        {% else %}
+        <div class="control {{ 'has-icons-left' if 'icon' in field.input}}">
+          <input class="input {{ field.input.classes|join(' ') }}" type="{{ field.input.type }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}" {{ field.input.attributes|join(' ')|safe }}>
+          {% if 'icon' in field.input %}
+          <span class="icon is-small is-left">
+            <i class="fa {{ field.input.icon }}" aria-hidden="true"></i>
+          </span>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <div class="field is-grouped">
+      <div class="control">
+      <button id="submit-article" class="button is-link">Enviar</button>
+    </div>
+  </section>
+  <script>
+    document.querySelectorAll('input[data-type="tags"]').forEach((e) => {
+      BulmaTagsInput.attach(e, {'delimiter':';'});
+    });
+
+    var date = document.querySelector('.date-field');
+    date.addEventListener('keydown', ev => {
+    	var ipLength = ev.target.value.length;
+      if(ipLength ===2 || ipLength ===5) {
+      	ev.target.value += '/';
+      }
+    });
+
+    document.getElementById('submit-article').onclick = function submit (e) {
+      e.preventDefault();
+      let res = [...document.querySelectorAll('input')].reduce((m,input) => { m[input.name] = input.value; return m }, {});
+      let req = new XMLHttpRequest();
+      req.onload = () => {
+          if (req.status == 200) {
+            bulmaToast.toast({ message: 'artigo adicionado ^^', opacity: 0.9, type: 'is-primary', dismissible: true });
+          } else {
+            bulmaToast.toast({ message: 'ocorreu um erro >< seu artigo não foi adicionado', type: 'is-danger', duration: 4000, opacity: 0.9, dismissible: true});
+          }
+      };
+
+      req.open('POST',window.location);
+      req.setRequestHeader('Content-Type', 'application/json');
+
+      req.send(JSON.stringify(res));
+
+    };
+  </script>
+  </body>
+</html>

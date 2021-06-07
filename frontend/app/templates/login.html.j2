@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Melodramatique</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fa/css/fork-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-tagsinput.min.css') }}" />
+    <script src="{{ url_for('static', filename='js/bulma-tagsinput.min.js') }}"></script>
+    <style>
+      html, body {
+        height: 100%;
+      }
+
+      #login-cont {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+  <div id="login-cont" class="container">
+    <form action="" method="post">
+      <div class="field">
+        <label class="label is-large">Usuário</label>
+        <div class="control">
+          <input name="user" class="input is-large {{ 'is-danger' if error else 'is-primary' }}" type="text">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label is-large">Senha</label>
+        <div class="control">
+          <input name="pw" class="input is-large {{ 'is-danger' if error else 'is-link' }}" type="password">
+        </div>
+        {% if error %}
+          <p class="help is-danger"> usuário ou senha inválidos ): </p>
+        {% endif %}
+      </div>
+      <div class="field">
+        <div class="control">
+          <button class="button is-medium is-primary">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  </body>
+</html>

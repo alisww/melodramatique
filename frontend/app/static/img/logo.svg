@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   height="512"
+   width="512"
+   viewBox="0 0 512 512"
+   preserveAspectRatio="xMidYMin slice"
+   version="1.1"
+   id="svg4586">
+  <metadata
+     id="metadata4592">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4590">
+    <rect
+       x="-394.5283"
+       y="248.14461"
+       width="301.81354"
+       height="200.52556"
+       id="rect858" />
+    <linearGradient
+       id="linearGradient6082"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6080" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6076"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6074" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient6082"
+       id="linearGradient6084"
+       x1="77.866812"
+       y1="386.00679"
+       x2="217.20259"
+       y2="386.00679"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <path
+     d="m512 256c0 141.386719-114.613281 256-256 256s-256-114.613281-256-256 114.613281-256 256-256 256 114.613281 256 256zm0 0"
+     fill="#005ed3"
+     id="path4556"
+     style="fill:#88a8ae;fill-opacity:1" />
+  <image
+     width="345"
+     height="345"
+     preserveAspectRatio="none"
+     xlink:href="data:image/png;base64,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 3NtR6isfRX0AAAAASUVORK5CYII= "
+     id="image852"
+     x="104.00673"
+     y="83.426018" />
+</svg>

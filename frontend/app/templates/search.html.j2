@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Melodramatique</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fa/css/fork-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-tagsinput.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-collapsible.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-calendar.min.css') }}">
+    <script src="{{ url_for('static', filename='js/bulma-tagsinput.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bulma-toast.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bulma-calendar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bulma-collapsible.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dayjs.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/customParseFormat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utc.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    <script>dayjs.extend(window.dayjs_plugin_customParseFormat)</script>
+    <script>dayjs.extend(window.dayjs_plugin_utc)</script>
+    <style>
+      .article-card {
+        max-width: 100%;
+        margin-bottom: 1%;
+      }
+
+      #search-card {
+        max-width: 100%;
+      }
+
+      #collapsible-card {
+        overflow-y: auto;
+      }
+
+      .article-card-title {
+        padding: .75rem 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="{{ url_for('static', filename='img/nav-logo.png') }}" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="main-nav">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="main-nav" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Pesquisar
+          </a>
+
+          <a class="navbar-item" href="{{url_for('submit')}}">
+            Adicionar artigos
+          </a>
+
+          <a class="navbar-item" href="https://melodrama.paginas.ufsc.br/" target="_blank" rel="noopener noreferrer">
+            Sobre
+          </a>
+        </div>
+      </div>
+    </nav>
+
+  <section class="section">
+    <div class="columns">
+      <div class="column is-one-third" id="search-column">
+        <div class="card" id="search-card">
+        	<header class="card-header">
+		        <p class="card-header-title">
+			        Opções de pesquisa
+	          </p>
+		        <a href="#collapsible-card" data-action="collapse" class="card-header-icon is-hidden-fullscreen" aria-label="more options">
+              <span class="icon">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+			        </span>
+		        </a>
+	        </header>
+
+          <div id="collapsible-card" class="is-collapsible is-active">
+            <div class="card-content">
+              <form id="search-form">
+                <div class="field">
+                  <label class="label"> procurar no resumo do artigo </label>
+                  <div class="control has-icons-left">
+                    <input class="input is-medium is-primary" type="text" id="summary" name="summary"></input>
+                    <span class="icon is-medium is-left">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label"> procurar no texto da página (transcrito automáticamente) </label>
+                  <div class="control has-icons-left">
+                    <input class="input is-medium is-link" type="text" id="ocr" name="ocr"></input>
+                    <span class="icon is-medium is-left">
+                      <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="field">
+                  <label class="label">depois de</label>
+
+                  <div class="control has-icons-left">
+                    <input id="after" class="input date-field is-medium" type="text" placeholder="01/01/1899" name="date">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">antes de</label>
+
+                  <div class="control has-icons-left">
+                    <input id="before" class="input date-field is-medium" type="text" placeholder="01/01/1969" name="date">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="field">
+                  <label class="label">Jornais</label>
+                  <div class="control">
+                    <select multiple class="input" data-type="tags" data-source-field="newspaper">
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Tipos</label>
+                  <div class="control">
+                    <select multiple class="input" data-type="tags" data-source-field="types">
+                    </select>
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="field">
+                  <label class="label">Autores</label>
+                  <div class="control">
+                    <select multiple class="input" data-type="tags" data-source-field="authors">
+                    </select>
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="field">
+                  <label class="label">Autores mencionados</label>
+                  <div class="control">
+                    <select multiple class="input" data-type="tags" data-source-field="mentioned_authors">
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Organizações mencionadas</label>
+                  <div class="control">
+                    <select multiple class="input" data-type="tags" data-source-field="mentioned_orgs">
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Obras mencionadas</label>
+                  <div class="control">
+                    <select multiple class="input" data-type="tags" data-source-field="mentioned_works">
+                    </select>
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-large is-link">Pesquisar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="results-column" class="column is-half">
+      </div>
+    </div>
+  </section>
+  <script>
+    function insert_results (data) {
+
+      let container = document.getElementById("results-column");
+      container.innerHTML = "";
+      data.forEach((article) => {
+        let content = `<div class="card article-card">
+            <header class="class-header">
+              <div class="article-card-title">
+                <p class="title is-4">
+   ${article['title']} - <i class="subtitle is-5">${article['newspaper']}, ${dayjs.unix(0).utc().subtract(article['date'],'days').format('DD/MM/YYYY')}</i>
+                </p>
+                <p class="subtitle is-5">
+                  <a href="${article['url']}"><i>Edição ${article['edition']}, p. ${article['page']}</i></a>
+                  <div class="tags are-medium">
+                    ${article['types'].map(r => '<span class="tag is-success">' + r + '</span>').join('\n') }
+                  </div>
+                </p>
+              </div>
+            </header>
+            <div class="card-content" style="margin-top: 0; padding-top: 0;">
+              <p>
+              ${article['summary']}
+              </p>
+              <hr />
+              <p>
+                <p>
+                 <strong>Autor do artigo: </strong>
+                 ${article['authors'].join(', ')}
+                </p>
+                <br />
+                <strong>Autores mencionados</strong>
+                <div class="tags are-medium is-link">
+                  ${article['mentioned_authors'].map(r => '<span class="tag is-link is-light">' + r + '</span>').join('\n') }
+                </div>
+                <strong>Organizações mencionadas</strong>
+                <div class="tags are-medium is-link">
+                ${article['mentioned_orgs'].map(r => '<span class="tag is-link is-light">' + r + '</span>').join('\n') }
+                </div>
+                <strong>Obras mencionadas</strong>
+                <div class="tags are-medium is-link">
+                ${article['mentioned_works'].map(r => '<span class="tag is-link is-light">' + r + '</span>').join('\n') }
+                </div>
+              </p>
+            </div>
+          </div>
+          `;
+          container.insertAdjacentHTML('afterbegin',content);
+        });
+    }
+
+    fetch('/api/all',{mode:'cors'}).then(res => res.json()).then(data => insert_results(data));
+
+    document.getElementById("search-form").addEventListener('submit', (e) => {
+      let req = {
+        limit: 500 // add in hidden pagination later!
+      };
+
+      let before = document.getElementById("before").value;
+      if (before != "") {
+        req["before"] = dayjs.unix(0).utc().diff(dayjs.utc(before,"dd/mm/YYYY"),'day');
+      }
+
+      let after = document.getElementById("after").value;
+      if (after != "") {
+        req["after"] = dayjs.unix(0).utc().diff(dayjs.utc(after,"dd/mm/YYYY"),'day');
+      }
+
+      document.querySelectorAll('select[data-type="tags"]').forEach((input) => {
+        if(input.BulmaTagsInput().items.length > 0) {
+          req[input.dataset.sourceField] = input.BulmaTagsInput().items.map(x => x ['value']).join("_and_");
+        }
+      });
+
+      let summary_query = document.getElementById("summary").value;
+      if (summary_query != "") {
+        req["summary"] = summary_query;
+      }
+
+      let ocr_query = document.getElementById("ocr").value;
+      if (ocr_query != "") {
+        req["ocr"] = ocr_query;
+      }
+      // console.log('http://localhost:4445/search?' + (new URLSearchParams(req)).toString());
+          const response = fetch('/api/search?' + (new URLSearchParams(req)).toString(), {mode:'cors'})
+                        .then(response => response.json())
+                        .then(data => insert_results(data));
+      e.preventDefault();
+    });
+
+    document.querySelectorAll('select[data-type="tags"]').forEach((e) => {
+      fetch(`/tags/${e.dataset.sourceField}`)
+            .then(r => r.json())
+            .then((data) => {
+              data.sort();
+              data.forEach((t) => {
+                let opt = document.createElement('option');
+                opt.value = t;
+                opt.innerText = t;
+                e.appendChild(opt);
+               });
+
+              new BulmaTagsInput(e, {
+                delimiter: '|'
+              });
+            });
+    });
+
+    document.querySelectorAll('.date-field').forEach((date) => {
+        date.addEventListener('keyup', (ev) => {
+    	    if (dayjs(date.value,'dd/mm/YYYY').isValid()) {
+            if (!date.classList.contains("is-primary")) {
+              date.classList.remove("is-danger");
+              date.classList.add("is-primary");
+            }
+          } else {
+            if (!date.classList.contains("is-danger")) {
+              date.classList.remove("is-primary");
+              date.classList.add("is-danger");
+            }
+          }
+        });
+    });
+
+    const search_card = document.getElementById('collapsible-card');
+    new bulmaCollapsible(search_card);
+    search_card.bulmaCollapsible().on('after:collapse', (e) => {
+      document.getElementById('search-column').classList.remove("is-one-third");
+      document.getElementById('search-column').classList.add("is-one-fifth");
+    });
+    search_card.bulmaCollapsible().on('after:expand', (e) => {
+      document.getElementById('search-column').classList.remove("is-one-fifth");
+      document.getElementById('search-column').classList.add("is-one-third");
+    });
+  </script>
+  </body>
+</html>

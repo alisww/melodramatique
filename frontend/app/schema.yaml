@@ -1,0 +1,141 @@
+link:
+  name: "Link"
+  input:
+    type: "text"
+    placeholder: "link do artigo na hemeroteca"
+    icon: "fa-external-link"
+    classes:
+      - "is-link"
+
+newspaper:
+  name: "Jornal"
+  input:
+    type: "text"
+    placeholder: "nome do jornal"
+    icon: "fa-archive-org"
+    classes:
+      - "is-info"
+      - "is-medium"
+
+title:
+  name: "Título"
+  input:
+    type: "text"
+    placeholder: "título do artigo"
+    icon: "fa-bookmark"
+    classes:
+      - "is-info"
+      - "is-medium"
+
+authors:
+  name: "autores do artigo"
+  converter:
+    from: "semicolon_list"
+    to: "tag_array"
+  input:
+    type: "text"
+    placeholder: "autores do artigo"
+    classes:
+      - "is-info"
+      - "is-medium"
+    attributes:
+      - "data-type='tags'"
+
+date:
+  name: "Data"
+  converter:
+    from: "datestring"
+    to: "timestamp"
+  input:
+    type: "text"
+    placeholder: "dia/mês/ano"
+    icon: "fa-calendar"
+    classes:
+      - "date-field"
+      - "is-info"
+      - "is-medium"
+
+edition:
+  name: "Edição"
+  input:
+    type: "number"
+    placeholder: "número da edição"
+    icon: "fa-newspaper-o"
+    classes:
+      - "is-info"
+      - "is-medium"
+
+page:
+  name: "Página"
+  input:
+    type: "text"
+    placeholder: "páginas do artigo"
+    icon: "fa-newspaper-o"
+    classes:
+      - "is-info"
+      - "is-medium"
+
+types:
+  name: "Tipos do artigo"
+  converter:
+    from: "semicolon_list"
+    to: "tag_array"
+  input:
+    type: "text"
+    placeholder: "tipos do texto"
+    classes:
+      - "is-info"
+      - "is-medium"
+    attributes:
+      - "data-type='tags'"
+
+mentioned_authors:
+  name: "Artistas mencionados"
+  converter:
+    from: "semicolon_list"
+    to: "tag_array"
+  input:
+    type: "text"
+    placeholder: "artistas/autores mencionados no texto"
+    classes:
+      - "is-info"
+      - "is-medium"
+    attributes:
+      - "data-type='tags'"
+
+
+mentioned_orgs:
+  name: "Organizações mencionadas"
+  converter:
+    from: "semicolon_list"
+    to: "tag_array"
+  input:
+    type: "text"
+    placeholder: "organizações mencionadas no texto"
+    classes:
+      - "is-info"
+      - "is-medium"
+    attributes:
+      - "data-type='tags'"
+
+mentioned_works:
+  name: "Obras mencionadas"
+  converter:
+    from: "semicolon_list"
+    to: "tag_array"
+  input:
+    type: "text"
+    placeholder: "obras mencionadas no texto"
+    classes:
+      - "is-info"
+      - "is-medium"
+    attributes:
+      - "data-type='tags'"
+
+summary:
+  name: "Resumo"
+  input:
+    type: "textarea"
+    placeholder: "resumo do texto"
+    classes:
+      - "is-info"

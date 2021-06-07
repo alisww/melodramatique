@@ -1,0 +1,71 @@
+default_order_by: date
+
+fields:
+  id:
+    name: "doc id"
+    use_as_id: true
+
+  date:
+    name: "doc date"
+    query:
+      type: Range
+      min: before
+      max: after
+
+  type:
+    name: "doc type"
+
+  summary:
+    name: "doc description"
+    query:
+      type: Fulltext
+      lang: portuguese
+
+  ocr:
+    name: "doc ocr"
+    query:
+      type: Fulltext
+      lang: portuguese
+
+  mentioned_authors:
+    name: "authors"
+
+  mentioned_works:
+    name: "works"
+
+  mentioned_orgs:
+    name: "orgs"
+
+  authors:
+    name: "authors"
+
+  title:
+    name: "title"
+    query:
+      type: Fulltext
+      lang: portuguese
+
+  types:
+    name: "doc types"
+
+  edition:
+    name: "doc edition"
+    query:
+      type: Range
+      min: edition_min
+      max: edition_max
+
+  page:
+    name: "doc page"
+    query:
+      type: Range
+      min: page_min
+      max: page_max
+
+  newspaper:
+    name: "doc newspaper"
+
+  metadata:
+    name: "doc metadata"
+    query:
+      type: Nested
