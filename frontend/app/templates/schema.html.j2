@@ -10,6 +10,9 @@
     <script src="{{ url_for('static', filename='js/bulma-tagsinput.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bulma-toast.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dayjs.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/customParseFormat.js') }}"></script>
+    <script>dayjs.extend(window.dayjs_plugin_customParseFormat)</script>
   </head>
   <body>
     <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
@@ -47,7 +50,7 @@
       <div class="field">
         <label class="label">{{ field.name }}</label>
         {% if field.input.type == 'textarea' %}
-        <textarea class="textarea {{ field.input.classes|join(' ') }}" placeholder="{{ field.input.placeholder }}"></textarea>
+        <textarea class="textarea {{ field.input.classes|join(' ') }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}"></textarea>
         {% else %}
         <div class="control {{ 'has-icons-left' if 'icon' in field.input}}">
           <input class="input {{ field.input.classes|join(' ') }}" type="{{ field.input.type }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}" {{ field.input.attributes|join(' ')|safe }}>
@@ -67,20 +70,28 @@
   </section>
   <script>
     document.querySelectorAll('input[data-type="tags"]').forEach((e) => {
-      BulmaTagsInput.attach(e, {'delimiter':';'});
+      BulmaTagsInput.attach(e, {'delimiter':'|'});
     });
 
-    var date = document.querySelector('.date-field');
-    date.addEventListener('keydown', ev => {
-    	var ipLength = ev.target.value.length;
-      if(ipLength ===2 || ipLength ===5) {
-      	ev.target.value += '/';
-      }
+    document.querySelectorAll('.date-field').forEach((date) => {
+        date.addEventListener('keyup', (ev) => {
+    	    if (dayjs(date.value,'dd/mm/YYYY').isValid()) {
+            if (!date.classList.contains("is-primary")) {
+              date.classList.remove("is-danger");
+              date.classList.add("is-primary");
+            }
+          } else {
+            if (!date.classList.contains("is-danger")) {
+              date.classList.remove("is-primary");
+              date.classList.add("is-danger");
+            }
+          }
+        });
     });
 
     document.getElementById('submit-article').onclick = function submit (e) {
       e.preventDefault();
-      let res = [...document.querySelectorAll('input')].reduce((m,input) => { m[input.name] = input.value; return m }, {});
+      let res = [...document.querySelectorAll('input,textarea')].reduce((m,input) => { m[input.name] = input.value; return m }, {});
       let req = new XMLHttpRequest();
       req.onload = () => {
           if (req.status == 200) {

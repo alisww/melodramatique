@@ -1,0 +1,32 @@
+services:
+  frontend:
+    image: melodramatique:frontend
+    environment:
+      - DATABASE_URL=postgresql://melodrama:a@melodramatique_db/dramatique
+      - SECRET=uwu
+      
+  nginx:
+    image: melodramatique:nginx
+    ports:
+      - "127.0.0.1:8000:80"
+
+  search_server:
+    image: melodramatique:search
+    environment:
+      - PG_HOST=melodramatique_db
+      - PG_USER=melodrama
+      - PG_DBNAME=dramatique
+      - PG_PASSWORD=a
+
+  melodramatique_db:
+    image: melodramatique:db
+    environment:
+      - POSTGRES_USER=melodrama
+      - POSTGRES_PASSWORD=a
+      - POSTGRES_DB=dramatique
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+
+volumes:
+  db_data:

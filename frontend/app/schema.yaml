@@ -16,6 +16,9 @@ newspaper:
     classes:
       - "is-info"
       - "is-medium"
+  converter:
+    from: single
+    to: tag_array
 
 title:
   name: "Título"
@@ -30,7 +33,7 @@ title:
 authors:
   name: "autores do artigo"
   converter:
-    from: "semicolon_list"
+    from: "pipe_list"
     to: "tag_array"
   input:
     type: "text"
@@ -52,7 +55,6 @@ date:
     icon: "fa-calendar"
     classes:
       - "date-field"
-      - "is-info"
       - "is-medium"
 
 edition:
@@ -78,7 +80,7 @@ page:
 types:
   name: "Tipos do artigo"
   converter:
-    from: "semicolon_list"
+    from: "pipe_list"
     to: "tag_array"
   input:
     type: "text"
@@ -92,7 +94,7 @@ types:
 mentioned_authors:
   name: "Artistas mencionados"
   converter:
-    from: "semicolon_list"
+    from: "pipe_list"
     to: "tag_array"
   input:
     type: "text"
@@ -107,7 +109,7 @@ mentioned_authors:
 mentioned_orgs:
   name: "Organizações mencionadas"
   converter:
-    from: "semicolon_list"
+    from: "pipe_list"
     to: "tag_array"
   input:
     type: "text"
@@ -121,7 +123,7 @@ mentioned_orgs:
 mentioned_works:
   name: "Obras mencionadas"
   converter:
-    from: "semicolon_list"
+    from: "pipe_list"
     to: "tag_array"
   input:
     type: "text"

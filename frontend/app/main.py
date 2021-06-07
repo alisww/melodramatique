@@ -25,7 +25,11 @@ db = MelodramatiqueDB(app, os.environ["DATABASE_URL"])
 
 def convert(f, t, val):
     if f == "semicolon_list" and t == "tag_array":
-        return val.split(";")
+        return list(filter(None,val.split(";")))
+    elif f == "pipe_list" and t == "tag_array":
+        return list(filter(None,val.split("|")))
+    elif f == "single" and t == "tag_array":
+        return [val]
     elif f == "datestring" and t == "timestamp":
         return (
             datetime.datetime(1970, 1, 1) - datetime.datetime.strptime(val, "%d/%m/%Y")
