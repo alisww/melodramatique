@@ -27,14 +27,16 @@ class MelodramatiqueDB:
 
             return check_password_hash(row["hash"], password)
 
-    async def add_doc(self, doc):
+    async def add_doc(self, doc, doc_id=uuid.uuid4()):
         async with self._pool.acquire() as conn:
+            doc["id"] = str(doc_id)
             await conn.execute(
                 """
                 INSERT INTO documents (doc_id, object)
                 VALUES ($1, $2)
+                ON CONFLICT (doc_id) DO UPDATE SET object = $2
             """,
-                uuid.uuid4(),
+                doc_id,
                 json.dumps(doc),
             )
 
@@ -45,3 +47,11 @@ class MelodramatiqueDB:
                 field,
             )
             return list(filter(lambda x: x != "", map(lambda x: x["tag"], res)))
+
+    async def get_by_id(self,doc_id):
+        async with self._pool.acquire() as conn:
+            res = await conn.fetchrow(
+                """SELECT object FROM documents WHERE doc_id = $1""",
+                doc_id
+            )
+            return json.loads(res["object"])

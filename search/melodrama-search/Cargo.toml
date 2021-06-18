@@ -5,7 +5,7 @@ authors = ["Allie Signet <allie@cat-girl.gay>"]
 edition = "2018"
 
 [dependencies]
-compass = {git = "https://github.com/alisww/compass.git", branch = "main"}
+compass = {git = "https://github.com/alisww/compass.git", rev = "9cb80ad76b0506d670624dfd7cd3525ab711eb1e"}
 actix-web = "3"
 tokio-postgres = {version = "0.5.1", features = ["with-uuid-0_8", "with-serde_json-1"]}
 deadpool-postgres = "0.5.0"

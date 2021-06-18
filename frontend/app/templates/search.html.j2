@@ -247,6 +247,11 @@
                 </div>
               </p>
             </div>
+            {% if logged_in %}
+            <footer class="card-footer">
+              <a href="{{ url_for('submit' )}}?id=${article['id']}" class="card-footer-item">Editar</a>
+            </footer>
+            {% endif %}
           </div>
           `;
           container.insertAdjacentHTML('afterbegin',content);

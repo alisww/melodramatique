@@ -51,10 +51,10 @@
       <div class="field">
         <label class="label">{{ field.name }}</label>
         {% if field.input.type == 'textarea' %}
-        <textarea class="textarea {{ field.input.classes|join(' ') }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}"></textarea>
+        <textarea class="textarea {{ field.input.classes|join(' ') }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}" {{ field.input.attributes|join(' ')|safe }}>{{ presets[k] if k in presets }}</textarea>
         {% else %}
         <div class="control {{ 'has-icons-left' if 'icon' in field.input}}">
-          <input class="input {{ field.input.classes|join(' ') }}" type="{{ field.input.type }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}" {{ field.input.attributes|join(' ')|safe }}>
+          <input class="input {{ field.input.classes|join(' ') }}" type="{{ field.input.type }}" placeholder="{{ field.input.placeholder }}" name="{{ k }}" value="{{ presets[k] if k in presets }}" {{ field.input.attributes|join(' ')|safe }}>
           {% if 'icon' in field.input %}
           <span class="icon is-small is-left">
             <i class="fa {{ field.input.icon }}" aria-hidden="true"></i>
@@ -64,6 +64,9 @@
         {% endif %}
       </div>
     {% endfor %}
+    {% if 'id' in presets %}
+      <input type="hidden" name="id" value="{{ presets['id'] }}">
+    {% endif %}
     <div class="field is-grouped">
       <div class="control">
       <button id="submit-article" class="button is-link">Enviar</button>
@@ -71,7 +74,11 @@
   </section>
   <script>
     document.querySelectorAll('input[data-type="tags"]').forEach((e) => {
-      BulmaTagsInput.attach(e, {'delimiter':'|'});
+      fetch(`/tags/${e.name}`)
+            .then(r => r.json())
+            .then((data) => {
+              BulmaTagsInput.attach(e, {'delimiter':'|','source': data})
+            });
     });
 
     document.querySelectorAll('.date-field').forEach((date) => {

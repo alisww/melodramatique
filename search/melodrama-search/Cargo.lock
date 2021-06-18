@@ -462,7 +462,7 @@ dependencies = [
 [[package]]
 name = "compass"
 version = "0.1.0"
-source = "git+https://github.com/alisww/compass.git?branch=main#9cb80ad76b0506d670624dfd7cd3525ab711eb1e"
+source = "git+https://github.com/alisww/compass.git?rev=9cb80ad76b0506d670624dfd7cd3525ab711eb1e#9cb80ad76b0506d670624dfd7cd3525ab711eb1e"
 dependencies = [
  "actix-web",
  "chrono",
