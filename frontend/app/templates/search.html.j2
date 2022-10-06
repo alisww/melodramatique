@@ -208,7 +208,7 @@
       let container = document.getElementById("results-column");
       container.innerHTML = "";
       data.forEach((article) => {
-        let content = `<div class="card article-card">
+        let content = `<div class="card article-card" data-article-id="${article['id']}">
             <header class="class-header">
               <div class="article-card-title">
                 <p class="title is-4">
