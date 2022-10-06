@@ -215,7 +215,7 @@
    ${article['title']} - <i class="subtitle is-5">${article['newspaper']}, ${dayjs.unix(0).utc().subtract(article['date'],'days').format('DD/MM/YYYY')}</i>
                 </p>
                 <p class="subtitle is-5">
-                  <a href="${article['url']}"><i>Edição ${article['edition']}, p. ${article['page']}</i></a>
+                  <a href="${article['url'] || article['link']}"><i>Edição ${article['edition']}, p. ${article['page']}</i></a>
                   <div class="tags are-medium">
                     ${article['types'].map(r => '<span class="tag is-success">' + r + '</span>').join('\n') }
                   </div>
